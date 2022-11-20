@@ -1,16 +1,48 @@
 const User = require('../models/userModel')
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser")
+const jwt = require('jsonwebtoken')
 
 
-// login user
-const loginUser = async (req, res) => {
-    res.json({
-        mssg: 'Login user'
+// createToken function
+const createToken = (_id) => {
+    return jwt.sign({
+        _id
+    }, process.env.TOKEN_SECRET, {
+        expiresIn: '3d'
     })
 }
 
-// signup user
+// login user
+const loginUser = async (req, res) => {
+    const {
+        name,
+        password,
+        email,
+        roles
+    } = req.body
 
+    try {
+        const user = await User.login(
+            name,
+            email,
+            password,
+            roles)
+        const token = createToken(user._id)
+
+        return res.status(200).json({
+            email,
+            token
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            error: error.message
+        })
+    }
+}
+
+
+// signup user
 const signupUser = async (req, res) => {
 
     const {
@@ -27,10 +59,11 @@ const signupUser = async (req, res) => {
             password,
             email,
             roles)
+        const token = createToken(user._id)
 
         return res.status(200).json({
             email,
-            user
+            token
         })
 
     } catch (error) {

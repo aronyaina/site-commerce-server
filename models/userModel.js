@@ -26,6 +26,37 @@ const userSchema = new Schema({
     }
 })
 
+// static login function and crypting password 
+userSchema.statics.login = async function(name, email, password, roles) {
+    if (!email || !password) {
+        throw Error("All field must be filled")
+    }
+
+    const nameExist = await this.findOne({
+        name
+    })
+    const emailExist = await this.findOne({
+        email
+    })
+
+    if (nameExist || emailExist) {
+
+        const matchName = await (bcrypt.compare(password, nameExist.password))
+        const matchEmail = await (bcrypt.compare(password, emailExist.password))
+
+        if (matchName || matchEmail) {
+            return nameExist;
+        } else {
+            throw Error("Password error")
+        }
+
+    } else {
+        throw Error("Incorrect email or name")
+    }
+}
+
+
+
 // SIgnup function and crypting password 
 userSchema.statics.signup = async function(name, surname, password, email, roles) {
 
@@ -66,33 +97,5 @@ userSchema.statics.signup = async function(name, surname, password, email, roles
     return user;
 }
 
-// login function and crypting password 
-userSchema.statics.login = async function(name, password, email, roles) {
 
-    const isLogged = false;
-
-    const nameExist = await this.findOne({
-        name
-    })
-    const emailExist = await this.findOne({
-        email
-    })
-    const passwordMatch = await this.findOne({
-        hash
-    })
-
-    const salt = await bcrypt.genSalt(10);
-
-    const hash = await bcrypt.hash(password, salt)
-    if (nameExist || emailExist) {
-        if (passwordMatch) {
-            isLogged = true;
-        } else {
-            console.log("Password error");
-        }
-    } else {
-        console.log("User does not exist");
-    }
-
-}
 module.exports = mongoose.model('User', userSchema)
