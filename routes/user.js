@@ -2,7 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-
 // controler setup
 const {
     signupUser,
@@ -11,6 +10,7 @@ const {
 
 // login 
 router.post('/login', loginUser);
+
 
 // register
 router.post('/signup', signupUser);

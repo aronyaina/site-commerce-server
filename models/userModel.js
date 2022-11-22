@@ -27,7 +27,7 @@ const userSchema = new Schema({
 })
 
 // static login function and crypting password 
-userSchema.statics.login = async function(name, email, password, roles) {
+userSchema.statics.login = async function(name, email, password) {
     if (!email || !password) {
         throw Error("All field must be filled")
     }
@@ -39,13 +39,15 @@ userSchema.statics.login = async function(name, email, password, roles) {
         email
     })
 
+
     if (nameExist || emailExist) {
 
         const matchName = await (bcrypt.compare(password, nameExist.password))
         const matchEmail = await (bcrypt.compare(password, emailExist.password))
 
+
         if (matchName || matchEmail) {
-            return nameExist;
+            return nameExist.roles;
         } else {
             throw Error("Password error")
         }
@@ -58,7 +60,7 @@ userSchema.statics.login = async function(name, email, password, roles) {
 
 
 // SIgnup function and crypting password 
-userSchema.statics.signup = async function(name, surname, password, email, roles) {
+userSchema.statics.signup = async function(name, surname, password, email) {
 
     // validation
     const ValidateUser = async function() {
@@ -79,19 +81,19 @@ userSchema.statics.signup = async function(name, surname, password, email, roles
         email
     })
 
+
     if (exist) {
         throw error('Email already in use');
     }
 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
-
     const user = await this.create({
         name,
         surname,
         password: hash,
         email,
-        roles
+        roles: "user"
     })
 
     return user;

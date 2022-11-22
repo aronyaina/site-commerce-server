@@ -1,5 +1,4 @@
 const User = require('../models/userModel')
-const bodyParser = require("body-parser")
 const jwt = require('jsonwebtoken')
 
 
@@ -18,9 +17,8 @@ const loginUser = async (req, res) => {
         name,
         password,
         email,
-        roles
     } = req.body
-
+    const roles = "user"
     try {
         const user = await User.login(
             name,
