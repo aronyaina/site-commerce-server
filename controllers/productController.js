@@ -1,21 +1,24 @@
 const Product = require('../models/productModel')
 
+
+
 // save product post
 const saveProduct = async function(req, res) {
     const {
         name,
         description,
-        price
+        price,
+        quantity
     } = req.body
     try {
         const product = await Product.saveProduct(
             name,
             description,
-            price
+            price,
+            quantity
         )
         return res.status(200).json({
-            name,
-            price
+            product
         })
 
     } catch (error) {
@@ -50,6 +53,7 @@ const findProduct = async function(req, res) {
         return res.status(200).json({
             product
         })
+
     } catch (error) {
         return res.status(400).json({
             error: error.message
@@ -78,10 +82,11 @@ const updateProduct = async function(req, res) {
     const {
         name,
         description,
-        price
+        price,
+        quantity
     } = req.body
     try {
-        const product = await Product.updateProduct(id, name, description, price)
+        const product = await Product.updateProduct(id, name, description, price, quantity)
         return res.status(200).json({
             product
         })

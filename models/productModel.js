@@ -4,18 +4,22 @@ const Schema = mongoose.Schema
 const productSchema = new Schema({
     name: {
         type: "String",
-        required: true
+        required: [true, "Name is required"]
     },
     description: "String",
     price: {
         type: 'Number',
-        required: true
+        required: [true, "Price is required"]
+    },
+    quantity: {
+        type: 'Number',
+        required: [true, "Quantity is required"]
     }
 })
 
 
 // Save product function
-productSchema.statics.saveProduct = async function(name, description, price) {
+productSchema.statics.saveProduct = async function(name, description, price, quantity) {
     const nameExist = await this.findOne({
         name
     });
@@ -30,7 +34,8 @@ productSchema.statics.saveProduct = async function(name, description, price) {
     const product = await this.create({
         name,
         description,
-        price
+        price,
+        quantity
     })
     return product;
 }
@@ -49,6 +54,7 @@ productSchema.statics.deleteProduct = async function(id) {
 productSchema.statics.findProduct = async function() {
     const products = await this.find({})
     return products;
+
 }
 
 // Find one product function
@@ -61,7 +67,7 @@ productSchema.statics.findOneProduct = async function(id) {
 }
 
 // Find one product function
-productSchema.statics.updateProduct = async function(id, name, description, price) {
+productSchema.statics.updateProduct = async function(id, name, description, price, quantity) {
     const product_id = await this.findOne({
         _id: id
     })
@@ -71,7 +77,8 @@ productSchema.statics.updateProduct = async function(id, name, description, pric
     }, {
         name: name,
         description: description,
-        price: price
+        price: price,
+        quantity: quantity
     })
     return product;
 }
