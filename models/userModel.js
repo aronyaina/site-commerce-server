@@ -24,6 +24,8 @@ const userSchema = new Schema({
         type: 'string',
         required: true
     }
+}, {
+    timestamps: true
 })
 
 // static login function and crypting password 

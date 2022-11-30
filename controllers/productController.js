@@ -17,9 +17,9 @@ const saveProduct = async function(req, res) {
             price,
             quantity
         )
-        return res.status(200).json({
+        return res.status(200).json(
             product
-        })
+        )
 
     } catch (error) {
         return res.status(400).json({
@@ -35,9 +35,9 @@ const deleteProduct = async function(req, res) {
         const product = await Product.deleteProduct(
             id
         )
-        return res.status(200).json({
+        return res.status(200).json(
             product
-        })
+        )
 
     } catch (error) {
         return res.status(400).json({
@@ -50,9 +50,9 @@ const deleteProduct = async function(req, res) {
 const findProduct = async function(req, res) {
     try {
         const product = await Product.findProduct()
-        return res.status(200).json({
+        return res.status(200).json(
             product
-        })
+        )
 
     } catch (error) {
         return res.status(400).json({
@@ -66,9 +66,9 @@ const findOneProduct = async function(req, res) {
     const id = req.params.id
     try {
         const product = await Product.findOneProduct(id)
-        return res.status(200).json({
+        return res.status(200).json(
             product
-        })
+        )
     } catch (error) {
         return res.status(400).json({
             error: error.message
@@ -87,9 +87,9 @@ const updateProduct = async function(req, res) {
     } = req.body
     try {
         const product = await Product.updateProduct(id, name, description, price, quantity)
-        return res.status(200).json({
+        return res.status(200).json(
             product
-        })
+        )
     } catch (error) {
         return res.status(400).json({
             error: error.message

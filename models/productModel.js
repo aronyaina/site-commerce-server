@@ -15,6 +15,8 @@ const productSchema = new Schema({
         type: 'Number',
         required: [true, "Quantity is required"]
     }
+}, {
+    timestamps: true
 })
 
 
@@ -31,13 +33,13 @@ productSchema.statics.saveProduct = async function(name, description, price, qua
         throw Error('Price equal to zero or less')
     }
 
-    const product = await this.create({
+    const products = await this.create({
         name,
         description,
         price,
         quantity
     })
-    return product;
+    return products;
 }
 
 // Delete product function
@@ -72,7 +74,7 @@ productSchema.statics.updateProduct = async function(id, name, description, pric
         _id: id
     })
 
-    const product = await this.findOneAndUpdate({
+    const products = await this.findOneAndUpdate({
         _id: products_id,
     }, {
         name: name,
@@ -80,9 +82,9 @@ productSchema.statics.updateProduct = async function(id, name, description, pric
         price: price,
         quantity: quantity
     })
-    return product;
+    return products;
 }
 
 
 // exports shema
-module.exports = mongoose.model('product', productSchema)
+module.exports = mongoose.model('products', productSchema)
