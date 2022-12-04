@@ -1,6 +1,6 @@
 const express = require("express");
 
-const router = express.Router();
+
 
 
 // controler setup
@@ -11,6 +11,12 @@ const {
     findOneProduct,
     updateProduct
 } = require("../controllers/productController")
+
+const requireAuth = require("../middleware/requireAuth")
+const router = express.Router();
+
+// require Authentication
+router.use(requireAuth) 
 
 
 // create the product 

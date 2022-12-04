@@ -16,13 +16,13 @@ app.use(express.urlencoded({
 
 connectDB();
 
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
+  })
 app.use("/api/user", userRoute);
 
-app.use("/api/products", productRoute);
-
-app.get("/", (req, res) => {
-    res.send("Hello world from principal root !");
-});
+app.use("/api/product", productRoute);
 
 
 app.listen(process.env.SERVER_PORT, () => {

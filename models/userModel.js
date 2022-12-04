@@ -29,33 +29,25 @@ const userSchema = new Schema({
 })
 
 // static login function and crypting password 
-userSchema.statics.login = async function(name, email, password) {
+userSchema.statics.login = async function(email, password) {
     if (!email || !password) {
         throw Error("All field must be filled")
     }
 
-    const nameExist = await this.findOne({
-        name
-    })
     const emailExist = await this.findOne({
         email
     })
 
-
-    if (nameExist || emailExist) {
-
-        const matchName = await (bcrypt.compare(password, nameExist.password))
+    if (emailExist) {
         const matchEmail = await (bcrypt.compare(password, emailExist.password))
-
-
-        if (matchName || matchEmail) {
-            return nameExist.roles;
+        if (matchEmail) {
+            return emailExist.roles;
         } else {
             throw Error("Password error")
         }
 
     } else {
-        throw Error("Incorrect email or name")
+        throw Error("Incorrect email")
     }
 }
 
@@ -63,26 +55,18 @@ userSchema.statics.login = async function(name, email, password) {
 
 // SIgnup function and crypting password 
 userSchema.statics.signup = async function(name, surname, password, email) {
-
-    // validation
-    const ValidateUser = async function() {
-        if (!email || !password) {
-            throw Error("All field must be filled")
-        }
-        if (!validator.isEmail(email)) {
-            throw Error("Email is not valid")
-        }
-        if (!validator.isStrongPassword(password)) {
-            throw Error("Password not strong enough")
-        }
-
-    }
-
-    ValidateUser()
     const exist = await this.findOne({
         email
     })
-
+    if (!email || !password) {
+        throw Error("All field must be filled")
+    }
+    if (!validator.isEmail(email)) {
+        throw Error("Email is not valid")
+    }
+    if (!validator.isStrongPassword(password)) {
+        throw Error("Password not strong enough")
+    }
 
     if (exist) {
         throw error('Email already in use');

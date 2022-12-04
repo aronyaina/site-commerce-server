@@ -14,14 +14,12 @@ const createToken = (_id) => {
 // login user
 const loginUser = async (req, res) => {
     const {
-        name,
-        password,
         email,
+        password
     } = req.body
     const roles = "user"
     try {
         const user = await User.login(
-            name,
             email,
             password,
             roles)

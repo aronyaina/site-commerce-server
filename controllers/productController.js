@@ -10,6 +10,24 @@ const saveProduct = async function(req, res) {
         price,
         quantity
     } = req.body
+
+    let emptyField = []
+    if (!name) {
+        emptyField.push('name')
+    }
+    if (!price) {
+        emptyField.push('price')
+    }
+    if (!quantity) {
+        emptyField.push('quantity')
+    }
+
+    if (emptyField.length > 0) {
+        return res.status(400).json({
+            error: 'Veuiller completer les parties manquantes',
+            emptyField
+        })
+    }
     try {
         const product = await Product.saveProduct(
             name,
