@@ -16,6 +16,10 @@ const productSchema = new Schema(
       type: "Number",
       required: [true, "Quantity is required"],
     },
+    user_id: {
+      type: "String",
+      required: [true, "id is required"],
+    },
   },
   {
     timestamps: true,
@@ -27,7 +31,8 @@ productSchema.statics.saveProduct = async function (
   name,
   description,
   price,
-  quantity
+  quantity,
+  user_id
 ) {
   const nameExist = await this.findOne({
     name,
@@ -45,6 +50,7 @@ productSchema.statics.saveProduct = async function (
     description,
     price,
     quantity,
+    user_id,
   });
   return products;
 };
@@ -59,8 +65,8 @@ productSchema.statics.deleteProduct = async function (id) {
 };
 
 // Find product function
-productSchema.statics.findProduct = async function () {
-  const products = await this.find({});
+productSchema.statics.findProduct = async function (id) {
+  const products = await this.find(id);
   return products;
 };
 
