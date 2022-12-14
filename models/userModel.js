@@ -34,7 +34,7 @@ const userSchema = new Schema(
 // static login function and crypting password
 userSchema.statics.login = async function (email, password) {
   if (!email || !password) {
-    throw Error("All field must be filled");
+    throw Error("Tout les champs devrait etre completer");
   }
 
   const emailExist = await this.findOne({
@@ -46,10 +46,11 @@ userSchema.statics.login = async function (email, password) {
     if (matchEmail) {
       return emailExist.roles;
     } else {
-      throw Error("Password error");
+      throw Error("Erreur de mot de passe .");
     }
-  } else {
-    throw Error("Incorrect email");
+  }
+  if (!emailExist) {
+    throw Error("Compte inexistant");
   }
 };
 

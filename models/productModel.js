@@ -16,6 +16,9 @@ const productSchema = new Schema(
       type: "Number",
       required: [true, "Quantity is required"],
     },
+    image: {
+      type: "String",
+    },
     user_id: {
       type: "String",
       required: [true, "id is required"],
@@ -32,6 +35,7 @@ productSchema.statics.saveProduct = async function (
   description,
   price,
   quantity,
+  image,
   user_id
 ) {
   const nameExist = await this.findOne({
@@ -50,6 +54,7 @@ productSchema.statics.saveProduct = async function (
     description,
     price,
     quantity,
+    image,
     user_id,
   });
   return products;
@@ -84,7 +89,8 @@ productSchema.statics.updateProduct = async function (
   name,
   description,
   price,
-  quantity
+  quantity,
+  image
 ) {
   const products = await this.findOneAndUpdate(
     {
@@ -95,6 +101,7 @@ productSchema.statics.updateProduct = async function (
       description: description,
       price: price,
       quantity: quantity,
+      image: image,
     }
   );
   return products;
