@@ -70,7 +70,7 @@ userSchema.statics.signup = async function (name, surname, password, email) {
   }
 
   if (exist) {
-    throw error("Email deja utilise");
+    throw Error("Email deja utilise");
   }
 
   const salt = await bcrypt.genSalt(10);

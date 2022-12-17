@@ -2,6 +2,8 @@ const express = require("express");
 const userRoute = require("./routes/user");
 const productRoute = require("./routes/product");
 const uploadRoute = require("./routes/upload");
+const orderRoute = require("./routes/order");
+
 const path = require("path");
 const connectDB = require("./config/mongoConnect");
 const { json } = require("body-parser");
@@ -17,19 +19,16 @@ app.use(
 
 connectDB();
 
-// upload image
-
 // use the express.static middleware to serve static files
 app.use(express.static("./upload"));
-
 app.use("/api/user", userRoute);
-
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 app.use("/api/upload", uploadRoute);
 app.use("/api/product", productRoute);
+app.use("/api/order", orderRoute);
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log("Listen on port ", process.env.SERVER_PORT);

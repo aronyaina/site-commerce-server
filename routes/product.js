@@ -10,6 +10,7 @@ const storage = multer.diskStorage({
     callback(null, Date.now() + path.extname(file.originalname));
   },
 });
+const router = express.Router();
 
 const upload = multer({
   storage: storage,
@@ -26,7 +27,6 @@ const {
 } = require("../controllers/productController");
 
 const requireAuth = require("../middleware/requireAuth");
-const router = express.Router();
 
 // find all product
 router.get("/", findProduct);
