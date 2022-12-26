@@ -13,7 +13,7 @@ const connectDB = () =>
         useNewUrlParser: true,
       }
     )
-    .then(() => console.log("DB connected"))
+    .then(() => console.log("You are connected to database"))
     .catch(() => console.error);
 
 module.exports = connectDB;

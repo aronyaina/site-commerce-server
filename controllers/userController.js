@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
 
   try {
     const { id, roles } = await User.findOne({ email: email }).select("roles");
-    console.log("roles in login", roles);
+
     const user = await User.login(email, password);
     const token = createToken(user._id);
 

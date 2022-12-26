@@ -3,11 +3,13 @@ const Product = require("../models/productModel");
 // save product post
 const saveProduct = async function (req, res) {
   const { name, description, price, quantity } = req.body;
-  console.log("request file", req.file);
 
   const productImage = req.file.filename;
 
   let emptyField = [];
+  if (!productImage) {
+    emptyField.push("productImage");
+  }
   if (!name) {
     emptyField.push("name");
   }
@@ -58,8 +60,6 @@ const deleteProduct = async function (req, res) {
 // find product get
 const findProduct = async function (req, res) {
   try {
-    // const user_id = req.userId._id;
-    // console.log("user_id :", user_id);
     const product = await Product.findProduct({});
     return res.status(200).json(product);
   } catch (error) {
@@ -87,7 +87,6 @@ const updateProduct = async function (req, res) {
   const id = req.params.id;
   const { name, description, price, quantity } = req.body;
   const productImage = req.file.filename;
-  console.log(productImage);
   try {
     const product = await Product.updateProduct(
       id,

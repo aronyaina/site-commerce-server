@@ -5,23 +5,24 @@ const productSchema = new Schema(
   {
     name: {
       type: "String",
-      required: [true, "Name is required"],
+      required: [true, "Le nom est requis"],
     },
     description: "String",
     price: {
       type: "Number",
-      required: [true, "Price is required"],
+      required: [true, "Le prix est requis"],
     },
     quantity: {
       type: "Number",
-      required: [true, "Quantity is required"],
+      required: [true, "La quantite est requise"],
     },
     image: {
       type: "String",
+      required: [true, "L'image est requis"],
     },
     user_id: {
       type: "String",
-      required: [true, "id is required"],
+      required: [true, "L'Id est requis"],
     },
   },
   {
