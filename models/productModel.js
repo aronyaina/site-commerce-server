@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { $where } = require("./orderModel");
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
@@ -18,7 +19,6 @@ const productSchema = new Schema(
     },
     image: {
       type: "String",
-      required: [true, "L'image est requis"],
     },
     user_id: {
       type: "String",
@@ -90,8 +90,7 @@ productSchema.statics.updateProduct = async function (
   name,
   description,
   price,
-  quantity,
-  image
+  quantity
 ) {
   const products = await this.findOneAndUpdate(
     {
@@ -102,7 +101,6 @@ productSchema.statics.updateProduct = async function (
       description: description,
       price: price,
       quantity: quantity,
-      image: image,
     }
   );
   return products;

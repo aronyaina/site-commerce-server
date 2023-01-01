@@ -3,13 +3,16 @@ const Product = require("../models/productModel");
 // save product post
 const saveProduct = async function (req, res) {
   const { name, description, price, quantity } = req.body;
+  let productImage = "";
 
-  const productImage = req.file.filename;
+  try {
+    productImage = req.file.filename;
+  } catch (error) {
+    productImage = "default.jpg";
+  }
 
   let emptyField = [];
-  if (!productImage) {
-    emptyField.push("productImage");
-  }
+
   if (!name) {
     emptyField.push("name");
   }
@@ -86,15 +89,13 @@ const findOneProduct = async function (req, res) {
 const updateProduct = async function (req, res) {
   const id = req.params.id;
   const { name, description, price, quantity } = req.body;
-  const productImage = req.file.filename;
   try {
     const product = await Product.updateProduct(
       id,
       name,
       description,
       price,
-      quantity,
-      productImage
+      quantity
     );
     return res.status(200).json(product);
   } catch (error) {

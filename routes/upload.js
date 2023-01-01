@@ -20,7 +20,11 @@ router.get("/:name", (req, res) => {
 
 router.delete("/:name", (req, res) => {
   const deleteDir = "./upload";
+
   const name = req.params.name;
+  if (name === "default.jpg") {
+    return;
+  }
   const filePath = path.join(deleteDir, name);
 
   fs.unlink(filePath, (err) => {
@@ -28,7 +32,7 @@ router.delete("/:name", (req, res) => {
       throw err;
     }
 
-    res.send("File deleted successfully");
+    res.send("Fichier supprimer avec succes");
   });
 });
 
