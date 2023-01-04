@@ -13,7 +13,7 @@ const connectDB = () =>
         useNewUrlParser: true,
       }
     )
-    .then(() => console.log("You are connected to database"))
+    .then(() => console.log("Connected to mongodb database:" + process.env.DATABASE_PORT))
     .catch(() => console.error);
 
 module.exports = connectDB;
