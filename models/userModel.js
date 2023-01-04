@@ -34,7 +34,7 @@ const userSchema = new Schema(
 // static login function and crypting password
 userSchema.statics.login = async function (email, password) {
   if (!email || !password) {
-    throw Error("Tout les champs devrait etre completer");
+    throw Error("Tout les champs devrait etre completer .");
   }
 
   const emailExist = await this.findOne({
@@ -50,7 +50,7 @@ userSchema.statics.login = async function (email, password) {
     }
   }
   if (!emailExist) {
-    throw Error("Compte inexistant");
+    throw Error("Compte inexistant veuiller vous inscrire .");
   }
 };
 
@@ -66,7 +66,7 @@ userSchema.statics.signup = async function (name, surname, password, email) {
     throw Error("l'Email n'est pas valide");
   }
   if (!validator.isStrongPassword(password)) {
-    throw Error("Mot de passe trop faible");
+    throw Error("Mot de passe trop faible . Saisir un mot de passe avec des caracteres speciaux et des chiffres.");
   }
 
   if (exist) {
