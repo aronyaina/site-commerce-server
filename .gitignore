@@ -131,4 +131,4 @@ dist
 .pnp.*
 
 # atlas private certificates
-/config/certificate.pem
+config/certificates.pem
