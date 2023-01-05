@@ -7,21 +7,23 @@ const requireAuth = async (req, res, next) => {
 
   if (!authorization) {
     return res.status(401).json({
-      error: "Authorization token required",
+      error: "Vous avez besoins de vous authentifier",
     });
   }
   const token = authorization.split(" ")[1];
-
+  
   try {
     const { _id } = jwt.verify(token, process.env.TOKEN_SECRET);
-
-    req.userId = await User.findOne(_id).select("_id");
-    req.userRole = await User.findOne(_id).select("roles");
-
+ 
+    req.userId = await User.findOne({_id}).select("_id");
+    req.userRole = await User.findOne({_id}).select("roles");
+ 
     next();
   } catch (error) {
+  
     res.status(401).json({
-      error: "Request is not authorized",
+      
+      error: "La requete n'est pas autorise !",
     });
   }
 };

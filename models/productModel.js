@@ -1,28 +1,28 @@
 const mongoose = require("mongoose");
-const { $where } = require("./orderModel");
+
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema(
   {
     name: {
       type: "String",
-      required: [true, "Le nom est requis"],
+      required: [true, "Le nom est requis."],
     },
     description: "String",
     price: {
       type: "Number",
-      required: [true, "Le prix est requis"],
+      required: [true, "Le prix est requis."],
     },
     quantity: {
       type: "Number",
-      required: [true, "La quantite est requise"],
+      required: [true, "La quantite est requise."],
     },
     image: {
       type: "String",
     },
     user_id: {
       type: "String",
-      required: [true, "L'Id est requis"],
+      required: [true, "L'Id est requis."],
     },
   },
   {

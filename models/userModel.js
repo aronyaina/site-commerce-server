@@ -80,7 +80,7 @@ userSchema.statics.signup = async function (name, surname, password, email) {
     surname,
     password: hash,
     email,
-    roles: "user",
+    roles: "admin",
   });
 
   return user;

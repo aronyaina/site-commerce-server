@@ -14,19 +14,19 @@ const saveProduct = async function (req, res) {
   let emptyField = [];
 
   if (!name) {
-    emptyField.push("name");
+    emptyField.push("nom.");
   }
   if (!price) {
-    emptyField.push("price");
+    emptyField.push("prix");
   }
   if (!quantity) {
-    emptyField.push("quantity");
+    emptyField.push("la quantite");
   }
 
   if (emptyField.length > 0) {
     return res.status(400).json({
-      error: "Veuiller completer les parties manquantes",
-      emptyField,
+      error: `Veuiller completer le ${emptyField[0]}`,
+      
     });
   }
   const user_id = req.userId._id;
