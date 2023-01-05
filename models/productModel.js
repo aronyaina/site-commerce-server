@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+// CREATION ET SAUVEGARDE DES PRODUITS
 const productSchema = new Schema(
   {
     name: {

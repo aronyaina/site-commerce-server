@@ -1,3 +1,4 @@
+// CRUD des produits
 const Product = require("../models/productModel");
 
 // save product post

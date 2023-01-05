@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 const validator = require("validator");
 
+// CREACTION ET CRYPTAGE DE MOTS DE PASSES UTILISATEURS
 const userSchema = new Schema(
   {
     name: {

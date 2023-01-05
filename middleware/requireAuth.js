@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
+// MIDDLEWARE verifiant le token dans .env
 const requireAuth = async (req, res, next) => {
   // Verify authentication
   const { authorization } = req.headers;

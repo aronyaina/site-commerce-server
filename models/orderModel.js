@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+// Creaction de la collection des commandes
 const orderSchema = new Schema(
   {
     orderItems: [

@@ -1,3 +1,4 @@
+// CONNEXION  ET INSCRIPTION AVEC LE TOKEN DE 3J
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 

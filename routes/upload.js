@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const router = express.Router();
 
+// SAUVEGARDE DE L'IMAGES
 const imageDir = "/upload";
 
 router.get("/:name", (req, res) => {
